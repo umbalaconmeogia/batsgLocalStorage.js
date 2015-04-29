@@ -33,5 +33,5 @@ batsgLocalStorage.getUniqueKeyFromUrl();
 // Get param1 value.
 var param1 = batsgLocalStorage.getItem('param1');
 // Clear parameters passed to this page in local storage.
-batsgLocalStorage.removeItems();
+batsgLocalStorage.removeItem();
 ```
