@@ -4,26 +4,28 @@
   <meta charset="utf-8" />
   <script type="text/javascript" src="js/batsgLocalStorage.js"></script>
   <script type="text/javascript">
-   function onLoad() {
+    function onLoad() {
       var batsgLocalStorage = new BatsgLocalStorage();
 
-     // Get unique key from URL GET parameter.
-     batsgLocalStorage.getUniqueKeyFromUrl();
-     
-     // Get param1 value.
-     var param1 = batsgLocalStorage.getItem('param1');
+      // Get unique key from URL GET parameter.
+      batsgLocalStorage.getUniqueKeyFromUrl();
+       
+      // Get param1 value.
+      var param1 = batsgLocalStorage.getItem('param1');
 
-     // Clear local storage.
-     batsgLocalStorage.removeItem();
-     
-     // Log
-     document.getElementById('param1').innerHTML = param1;
-     document.getElementById('storageKey').innerHTML = batsgLocalStorage.fullKey('param1');
-   }
+      // Clear local storage.
+      batsgLocalStorage.removeItem();
+       
+      // Log
+      document.getElementById('param1').innerHTML = param1;
+      document.getElementById('storageKey').innerHTML = batsgLocalStorage.fullKey('param1');
+    }
   </script>
 </head>
 <body onload="onLoad();">
   <h1>Child page <span id="param1"></span></h1>
   <div>This get param1 from parent window passed via <span id="storageKey"></span> in local storage.</div>
+
+  <input type="button" value="Show storage" onclick="console.log('local and session Storage'); console.log(localStorage); console.log(sessionStorage);" />
 </body>
 </html>

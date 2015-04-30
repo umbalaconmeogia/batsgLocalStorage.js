@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <script type="text/javascript" src="js/batsgLocalStorage.js"></script>
   <script type="text/javascript">
+    // Set counter's initial value as a random number.
     var param1 = Math.floor(Math.random() * 10) + 11;
     
     function openOneChildWindow() {
@@ -19,21 +20,22 @@
     }
 
     function openOneChildWindowChangeParam() {
-      var batsgLocalStorage = new BatsgLocalStorage('prefix_');
-      batsgLocalStorage.setUrlParamName('localStorageKey');
+      var batsgLocalStorage = new BatsgLocalStorage('notdefault_');
+      // Do not use default url parameter name.
+      batsgLocalStorage.setUrlParamName('newParamName');
+      // Open child window.
       openChildWindow(batsgLocalStorage, 'childLocalStorageKey.html');
     }
     
     /**
      * Open a child window.
      * @param BatsgLocalStorage batsgLocalStorage
-     * @param string htmlFile
+     * @param string htmlFile Child window's url.
      */
     function openChildWindow(batsgLocalStorage, htmlFile) {
       ++param1;
 
       batsgLocalStorage.setItem('param1', param1);
-      console.log(localStorage);
       
       // Add unique key to URL get parameter.
       var url = htmlFile + '?' + batsgLocalStorage.urlParamForUniqueKey();
@@ -41,6 +43,7 @@
     }
     
     function onLoad() {
+      console.log(sessionStorage);
       document.getElementById('param1').innerHTML = param1;
     }
   </script>
@@ -54,5 +57,7 @@
     <li><a href="#" onclick="openMultipleChildWindows();">Open multiple children (default url parameter name)</a></li>
     <li><a href="#" onclick="openOneChildWindowChangeParam();">Open one child with not-default url parameter.</a></li>
   </ul>
+  
+  <input type="button" value="Show storage" onclick="console.log('local and session Storage'); console.log(localStorage); console.log(sessionStorage);" />
 </body>
 </html>

@@ -23,9 +23,10 @@ function BatsgLocalStorage(uniqueKeyPrefix) {
   
   /**
    * Storage to save data. Default to localStorage.
+   * Set this.storage = localStorage to use localStorage.
    * Set this.storage = sessionStorage to use sessionStorage.
    */
-  this.storage = localStorage;
+  this.storage = window.localStorage;
   
   this.setUrlParamName = function(paramName) {
     urlParamName = paramName;
