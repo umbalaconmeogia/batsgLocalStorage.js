@@ -14,11 +14,21 @@
       var param1 = batsgLocalStorage.getItem('param1');
 
       // Clear local storage.
-      batsgLocalStorage.removeItem();
+//      batsgLocalStorage.removeItem();
        
       // Log
       document.getElementById('param1').innerHTML = param1;
       document.getElementById('storageKey').innerHTML = batsgLocalStorage.fullKey('param1');
+    }
+    
+    /**
+     * Display localStorage and sessionStorage of this window.
+     */
+    function displayWebStorages() {
+      console.log('localStorage');
+      console.log(localStorage);
+      console.log('sessionStorage');
+      console.log(sessionStorage);
     }
   </script>
 </head>
@@ -26,6 +36,6 @@
   <h1>Child page <span id="param1"></span></h1>
   <div>This get param1 from parent window passed via <span id="storageKey"></span> in local storage.</div>
 
-  <input type="button" value="Show storage" onclick="console.log('local and session Storage'); console.log(localStorage); console.log(sessionStorage);" />
+  <input type="button" value="Show storage" onclick="displayWebStorages();" />
 </body>
 </html>

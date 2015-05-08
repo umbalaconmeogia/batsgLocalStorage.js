@@ -7,11 +7,25 @@
     // Set counter's initial value as a random number.
     var param1 = Math.floor(Math.random() * 10) + 11;
     
+    /**
+     * Open a child window, passing parameter using localStorage.
+     */
     function openOneChildWindow() {
       var batsgLocalStorage = new BatsgLocalStorage('batsg_');      
       openChildWindow(batsgLocalStorage, 'child.html');
     }
+
+    /**
+     * Open a child window, passing parameter using sessionStorage.
+     */
+    function openOneChildWindowSessionStorage() {
+      var batsgLocalStorage = new BatsgLocalStorage('session_', sessionStorage);      
+      openChildWindow(batsgLocalStorage, 'childSessionStorage.html');
+    }
     
+    /**
+     * Open multiple child windows at the same time.
+     */
     function openMultipleChildWindows() {
       var nChildren = 2;
       for (var i = 0; i < nChildren; i++) {
@@ -19,6 +33,9 @@
       }
     }
 
+    /**
+     * Open a child window, passsing unique key by not-default parameter name.
+     */
     function openOneChildWindowChangeParam() {
       var batsgLocalStorage = new BatsgLocalStorage('notdefault_');
       // Do not use default url parameter name.
@@ -46,6 +63,17 @@
       console.log(sessionStorage);
       document.getElementById('param1').innerHTML = param1;
     }
+    
+    /**
+     * Display localStorage and sessionStorage of this window.
+     */
+    function displayWebStorages() {
+      console.log('localStorage');
+      console.log(localStorage);
+      console.log('sessionStorage');
+      console.log(sessionStorage);
+    }
+    
   </script>
 </head>
 <body onload="onLoad();">
@@ -56,8 +84,9 @@
     <li><a href="#" onclick="openOneChildWindow();">Open one child (default url parameter name)</a></li>
     <li><a href="#" onclick="openMultipleChildWindows();">Open multiple children (default url parameter name)</a></li>
     <li><a href="#" onclick="openOneChildWindowChangeParam();">Open one child with not-default url parameter.</a></li>
+    <li><a href="#" onclick="openOneChildWindowSessionStorage();">Open one child using sessionStorage.</a></li>
   </ul>
   
-  <input type="button" value="Show storage" onclick="console.log('local and session Storage'); console.log(localStorage); console.log(sessionStorage);" />
+  <input type="button" value="Show storage" onclick="displayWebStorages();" />
 </body>
 </html>

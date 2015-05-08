@@ -4,9 +4,10 @@
  */
 
 /**
- * @param string uniqueKeyPrefix (Optional)
+ * @param string uniqueKeyPrefix (Optional) Specify this help debug convenient.
+ * @param WebStorage webStorage (Optional) Default to window.localStorage
  */
-function BatsgLocalStorage(uniqueKeyPrefix) {
+function BatsgLocalStorage(uniqueKeyPrefix, webStorage) {
 
   var urlParamName = 'batsgLocalStorageKey';
   var uniqueKey;
@@ -23,10 +24,8 @@ function BatsgLocalStorage(uniqueKeyPrefix) {
   
   /**
    * Storage to save data. Default to localStorage.
-   * Set this.storage = localStorage to use localStorage.
-   * Set this.storage = sessionStorage to use sessionStorage.
    */
-  this.storage = window.localStorage;
+  this.storage = (typeof webStorage !== 'undefined') ? webStorage : window.localStorage;
   
   this.setUrlParamName = function(paramName) {
     urlParamName = paramName;
@@ -81,23 +80,25 @@ function BatsgLocalStorage(uniqueKeyPrefix) {
   
   /**
    * Remove an item or group of item from local storage.
-   * @param string key (Optional)
+   * @param string key (Optional) Remove item group if null or not specified.
+   * @param WebStorage webStorage (Optional) If not specified, then this.storage is used.
    */
-  this.removeItem = function(key) {
-    if (typeof key === 'undefined') {
+  this.removeItem = function(key, webStorage) {
+    var storage = (typeof webStorage !== 'undefined') ? webStorage : this.storage;
+    if (typeof key === 'undefined' || key == null) {
       // Remove all key belongs to uniqueKey group.
       key = this.fullKey('');
-      var len = this.storage.length;
+      var len = storage.length;
       for ( var i = 0; i < len; ++i ) {
-        var subKey = this.storage.key(i);
+        var subKey = storage.key(i);
         // subKey may be null if some key is deleted just before this method called.
         if (subKey !== null && subKey.indexOf(key) == 0) {
-          this.storage.removeItem(subKey);
+          storage.removeItem(subKey);
         }
       }
     } else {
       // Remove specified key.
-      this.storage.removeItem(this.fullKey(key));
+      storage.removeItem(this.fullKey(key));
     }
   };
 
@@ -107,7 +108,7 @@ function BatsgLocalStorage(uniqueKeyPrefix) {
    * @return string
    */
   this.fullKey = function(key) {
-    key = (typeof key === 'undefined') ? uniqueKey : uniqueKey + '.' + key;
+    key = (typeof key === 'undefined' || key == null) ? uniqueKey : uniqueKey + '.' + key;
     return key;
   };
 
