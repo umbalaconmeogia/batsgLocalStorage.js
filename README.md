@@ -35,3 +35,22 @@ var param1 = batsgLocalStorage.getItem('param1');
 // Clear parameters passed to this page in local storage.
 batsgLocalStorage.removeItem();
 ```
+
+# Best practice
+
+## When passing data from parent page to child page using sessionStorage
+
+* Do not removeItem() in child page.
+Because the page will have no data to use when user refreshes it (by press F5 key, for example).
+* Child page should removeItem() in sessionStorage of parent page.
+Because if not delete, this data will exist in parent page and is passed to another child page, which become garbage.
+
+To use sessionStorage
+```
+var batsgLocalStorage = new BatsgLocalStorage('session_', sessionStorage);
+```
+
+To remove data in parent page
+```
+batsgLocalStorage.removeItem(null, window.opener.sessionStorage);
+```
