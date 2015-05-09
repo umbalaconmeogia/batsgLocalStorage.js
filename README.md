@@ -41,9 +41,9 @@ batsgLocalStorage.removeItem();
 ## When passing data from parent page to child page using sessionStorage
 
 * Do not removeItem() in child page.
-Because the page will have no data to use when user refreshes it (by press F5 key, for example).
+Because the page will have no data to use when user refreshes it (by pressing F5 key, for example).
 * Child page should removeItem() in sessionStorage of parent page.
-Because if not delete, this data will exist in parent page and is passed to another child page, which become garbage.
+Because if not delete, this data will exist in parent page and is passed to another child page, which becomes garbage.
 
 To use sessionStorage
 ```
